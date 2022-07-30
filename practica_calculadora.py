@@ -26,6 +26,8 @@ def numeroPuslsado(num):
     if operacion!="":
         numeroPantalla.set(num)
         operacion=""
+    elif int(numeroPantalla.get()+num)==0:
+        numeroPantalla.set("0")    
     else:
         numeroPantalla.set(numeroPantalla.get()+num)
 
@@ -39,8 +41,10 @@ def suma(num):
 #-------------------funcio el_resultado--------------#
 def el_resultado():
     global resultado
+    global operacion
     numeroPantalla.set(resultado+int(numeroPantalla.get()))
     resultado=0
+    operacion="reultado"
 
 #---------------fila1------------------#
 
