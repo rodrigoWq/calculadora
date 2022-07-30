@@ -1,9 +1,16 @@
+from ast import Lambda
+from lib2to3.pgen2.grammar import opmap_raw
 from tkinter import *
+
+from setuptools import Command
 
 raiz=Tk()
 
 miFrame=Frame(raiz)
 miFrame.pack()
+
+operacion=""
+resultado=0
 
 #----------pantalla--------------------#
 numeroPantalla=StringVar()
@@ -15,9 +22,25 @@ pantalla.config(background="black",fg="#03f943",justify="right")
 #-------------pulsaciones teclado------------#
 
 def numeroPuslsado(num):
-    numeroPantalla.set(numeroPantalla.get()+num)
+    global operacion
+    if operacion!="":
+        numeroPantalla.set(num)
+        operacion=""
+    else:
+        numeroPantalla.set(numeroPantalla.get()+num)
 
-
+#-------------funcion suma------------------#
+def suma(num):
+    global operacion
+    global resultado
+    resultado+=int(num)
+    operacion="suma"
+    numeroPantalla.set(resultado)
+#-------------------funcio el_resultado--------------#
+def el_resultado():
+    global resultado
+    numeroPantalla.set(resultado+int(numeroPantalla.get()))
+    resultado=0
 
 #---------------fila1------------------#
 
@@ -61,9 +84,10 @@ boton0=Button(miFrame,text="0",width=3,command=lambda:numeroPuslsado("0"))
 boton0.grid(row=5,column=1)
 botonComa=Button(miFrame,text=",",width=3,command=lambda:numeroPuslsado(","))
 botonComa.grid(row=5,column=2)
-botonIgual=Button(miFrame,text="=",width=3)
+botonIgual=Button(miFrame,text="=",width=3,command=lambda:el_resultado())
 botonIgual.grid(row=5,column=3)
-botonSuma=Button(miFrame,text="+",width=3)
+botonSuma=Button(miFrame,text="+",width=3,command=lambda:suma(numeroPantalla.get()))
+
 botonSuma.grid(row=5,column=4)
 
 
